@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+
+
+  <style>
+    .left {
+      margin-left: 30px;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 1);
+    }
+
+    a.nav-link:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .col {
+      padding: 0;
+    }
+
+    .card {
+      --bs-card-spacer-y: 0;
+      --bs-card-spacer-x: 0;
+    }
+
+    .searching {
+      background-color: rgba(210, 105, 30, .9);
+      border: 0;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-left: 0;
+      color: black;
+    }
+
+    .searching:hover {
+      background-color: rgba(210, 105, 30, 1);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="javascript:void(0)"><img src="images/newLogo2.png" alt=""
+          style="height: 50px; width: 60px;"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link " href="javascript:void(0)">Best Seller</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  " href="javascript:void(0)">Today's Deal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="javascript:void(0)">New Releases</a>
+          </li>
+          <form class="d-flex my-1" style="margin-left: 40px;">
+            <input class="form-control me-2" type="text" placeholder="Search">
+            <button type="button" class="btn border-2 rounded searching"><i class="fa fa-search"></i></button>
+          </form>
+        </ul>
+        
+
+      </div>
+      <div class="toast" style="width: 200px;">
+        <div class="toast-header">
+          <strong class="me-auto">Logged Out Succesfully</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <!-- <div class="toast-body">
+          <p>Some text inside the toast body</p>
+        </div> -->
+      </div>
+      <div class="dropdown dropend">
+        <img src="images/avatar_processed.png" alt="Avatar" class=" dropdown-toggle border-1" data-toggle="dropdown"
+          style="height: 50px; width: 60px; margin-left: 10px;margin-right: 20px; cursor: pointer;">
+        <div class="dropdown-menu mt-2">
+          <a class="dropdown-item" href="#">My Account</a>
+          <a class="dropdown-item" href="#">Password Change</a>
+          <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModal">Log Out</a>
+        </div>
+      </div>
+
+
+      <img src="images/cart.png" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add Cart" alt="cart"
+        style="height: 50px; width: 50px; cursor: pointer;">
+    </div>
+
+  </nav>
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Hi Dear...</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          Did you really want to logout?
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary px-4" class="btn-close" data-bs-dismiss="modal" id="toastbtn"><a
+              href="#" style="color: white; text-decoration: none;">Yes</a></button>
+
+          <button type="button" class="btn btn-danger" class="btn-close" data-bs-dismiss="modal"
+            data-dismiss="modal">close</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <script>
+    document.getElementById("toastbtn").onclick = function () {
+      var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+      var toastList = toastElList.map(function (toastEl) {
+        return new bootstrap.Toast(toastEl)
+      })
+      toastList.forEach(toast => toast.show())
+    }
+  </script>
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  </script>
+
+  <!-- Carousel -->
+
+  <div id="demo" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="images/e-com3.jpg" alt="Los Angeles" class="d-block" style="width:100%">
+      </div>
+      <div class="carousel-item">
+        <img src="images/e-com2.webp" alt="Chicago" class="d-block" style="width:100%">
+      </div>
+      <div class="carousel-item">
+        <img src="images/e-com1.webp" alt="New York" class="d-block" style="width:100%">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+  <br>
+  <script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl)
+    })
+  </script>
+
+  <!-- Favourites and History  -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col m-2 ps-2">
+        <div class="card" style="background-color:white;">
+          <div class="card-body ps-4">
+            <h3 class="card-title" style="color: black;">Your Favourites</h3>
+            <div class="row">
+              <div class="col left">
+                <h5 class="card-title">Iphone 15Pro</h5>
+                <img class="border border-2"  src="images/iphone_processed.jpg" alt="laptop" style="width:250px;height:170px;"><br>
+                <a href="#" class="card-link"> <button type="button"
+                    class="btn btn-primary px-1  py-0 ms-3">Cart</button></a>
+                <a href="#" class="card-link"> <button type="button"
+                    class="btn btn-outline-primary px-3 py-0 ms-5">Buy</button></a>
+              </div>
+              <div class="col right">
+                <h5 class="card-title">card2</h5>
+                <img src="images/macbook_processed.jpg" alt="laptop" style="width:250px;height:170px;"><br>
+                <a href="#" class="card-link"><button type="button"
+                    class="btn btn-primary px-1  py-0 ms-3 ">Cart</button></a>
+                <a href="#" class="card-link"><button type="button"
+                    class="btn btn-outline-primary px-3 py-0 ms-5">Buy</button></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col left">
+                <h5 class="card-title">card3</h5>
+                <img src="images/fav-1.webp" alt="laptop" style="width:250px;height:170px;"><br>
+                <a href="#" class="card-link"><button type="button"
+                    class="btn btn-primary px-1  py-0 ms-3">Cart</button></a>
+                <a href="#" class="card-link"><button type="button"
+                    class="btn btn-outline-primary px-3 py-0 ms-5">Buy</button></a>
+              </div>
+              <div class="col right">
+                <h5 class="card-title">card4</h5>
+                <img src="images/fav-1.webp" alt="laptop" style="width:250px;height:170px;"><br>
+                <a href="#" class="card-link"><button type="button"
+                    class="btn btn-primary px-1  py-0 ms-3 ">Cart</button></a>
+                <a href="#" class="card-link"><button type="button"
+                    class="btn btn-outline-primary px-3 py-0 ms-5">Buy</button>
+                </a>
+              </div>
+              <h5 style="padding-top: 30px;"><a href="#" style="text-decoration: none; color:royalblue;">see more</a>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl m-2 ps-2">
+        <div class="card" style="background-color:white;">
+          <div class="card-body ps-4">
+            <h3 class="card-title" style="color: black;">History</h3>
+            <div class="col">
+              <div class="row">
+                <div class="col left">
+                  <h5 class="card-title">card5</h5>
+                  <img src="images/fav-1.webp" alt="laptop" style="width:250px;height:170px;"><br>
+                  <a href="#" class="card-link"><button type="button"
+                      class="btn btn-primary px-1  py-0 ms-3">Cart</button></a>
+                  <a href="#" class="card-link"><button type="button"
+                      class="btn btn-outline-primary px-3 py-0 ms-5">Buy</button></a>
+                </div>
+                <div class="col right">
+                  <h5 class="card-title">card6</h5>
+                  <img src="images/fav-1.webp" alt="laptop" style="width:250px;height:170px;"><br>
+                  <a href="#" class="card-link"><button type="button"
+                      class="btn btn-primary px-1  py-0 ms-3">Cart</button></a>
+                  <a href="#" class="card-link"><button type="button"
+                      class="btn btn-outline-primary px-3 py-0 ms-5">Buy</button></a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col left">
+                  <h5 class="card-title">card7</h5>
+                  <img src="images/fav-1.webp" alt="laptop" style="width:250px;height:170px;"><br>
+                  <a href="#" class="card-link"><button type="button"
+                      class="btn btn-primary px-1  py-0 ms-3">Cart</button></a>
+                  <a href="#" class="card-link"><button type="button"
+                      class="btn btn-outline-primary px-3 py-0 ms-5">Buy</button></a>
+                </div>
+                <div class="col right">
+                  <h5 class="card-title">card8</h5>
+                  <img src="images/fav-1.webp" alt="laptop" style="width:250px;height:170px;"><br>
+                  <a href="#" class="card-link"><button type="button"
+                      class="btn btn-primary px-1  py-0 ms-3">Cart</button></a>
+                  <a href="#" class="card-link"><button type="button"
+                      class="btn btn-outline-primary px-3 py-0 ms-5">Buys</button></a>
+                </div>
+                <h5 style="padding-top: 30px;"><a href="#" style="text-decoration: none; color:royalblue;">see more</a>
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div class="d-flex flex-nowrap bg-light" style="overflow-x: auto;">
+    <div class="p-2 border border-2"><img src="images/laptop.jfif" alt="Hi" style="height: 150px; width: 150px;"></div>
+    <div class="p-2 border border-2"><img src="images/mobile.png" alt="Hi" style="height: 150px; width: 150px;"> </div>
+    <div class="p-2 border border-2"><img src="images/fridge.jpg" alt="Hi" style="height: 150px; width: 150px;"> </div>
+    <div class="p-2 border border-2"><img src="images/bluetooth.jfif" alt="Hi" style="height: 150px; width: 150px;"> </div>
+    <div class="p-2 border border-2"><img src="images/washing.webp" alt="Hi" style="height: 150px; width: 150px;"> </div>
+    <div class="p-2 border border-2"><img src="images/bed.webp" alt="Hi" style="height: 150px; width: 150px;"> </div>
+    <div class="p-2 border border-2"><img src="images/LEDTV.jfif" alt="Hi" style="height: 150px; width: 150px;"> </div>
+    <div class="p-2 border border-2"><img src="images/shoes.webp" alt="Hi" style="height: 150px; width: 150px;"> </div>
+    <div class="p-2 border border-2"><img src="images/bikes.jpg" alt="Hi" style="height: 150px; width: 150px;"> </div>
+    <div class="p-2 border border-2"><img src="images/ac.webp" alt="Hi" style="height: 150px; width: 150px;"> </div>
+    <div class="p-2 border border-2"><img src="images/logo1.png" alt="Hi" style="height: 150px; width: 150px;"> </div>
+  </div>
+  <br>
+  <div class="container-fluid px-0">
+    <div class="d-grid">
+      <a href="#"><button type="button" class="btn rounded-0 btn-primary btn-block"
+          style="width: 100%; opacity: .8;">Back to
+          Top</button></a>
+    </div>
+  </div>
+  <br>
+
+  <!-- Footer -->
+
+
+  <footer style=" bottom: 0; width: 100%; margin-top: 1px;">
+    <div class="footerContainer">
+      <div class="socialIcons">
+        <a href=""><i class="fa-brands fa-facebook"></i></a>
+        <a href=""><i class="fa-brands fa-instagram"></i></a>
+        <a href=""><i class="fa-brands fa-twitter"></i></a>
+        <a href=""><i class="fa-brands fa-google-plus"></i></a>
+        <a href=""><i class="fa-brands fa-youtube"></i></a>
+      </div>
+      <div class="footerNav">
+        <ul>
+          <li><a href="">Home</a></li>
+          <li><a href="">News</a></li>
+          <li><a href="">About</a></li>
+          <li><a href="">Contact Us</a></li>
+          <li><a href="">our Team</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="footerBottom">
+      <p>Copyright &copy;2023; Designed by <span class="designer">Deepak</span></p>
+    </div>
+  </footer>
+</body>
+
+</html>
